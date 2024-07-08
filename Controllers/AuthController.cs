@@ -1,9 +1,9 @@
 using erp_back.Models;
-using erp_back.Data;
+using erp_back.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace erp_back.Controllers
 {
@@ -11,30 +11,26 @@ namespace erp_back.Controllers
     [ApiController]
     public class AuthenticationsController : ControllerBase
     {
-        private readonly IDataRepository<Authentication> _authRepository;
+        private readonly IAuthenticationService _authenticationService;
 
-        public AuthenticationsController(IDataRepository<Authentication> authRepository)
+        public AuthenticationsController(IAuthenticationService authenticationService)
         {
-            _authRepository = authRepository;
+            _authenticationService = authenticationService;
         }
 
         // GET: api/Authentications
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Authentication>>> GetAuthentications()
         {
-            return Ok(await _authRepository.GetAllAsync());
+            var authentications = await _authenticationService.GetAllAsync();
+            return Ok(authentications);
         }
-
-
-
-
-        
 
         // GET: api/Authentications/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Authentication>> GetAuthentication(int id)
         {
-            var authentication = await _authRepository.GetByIdAsync(id);
+            var authentication = await _authenticationService.GetByIdAsync(id);
 
             if (authentication == null)
             {
@@ -43,10 +39,6 @@ namespace erp_back.Controllers
 
             return authentication;
         }
-
-
-
-
 
         // PUT: api/Authentications/5
         [HttpPut("{id}")]
@@ -59,11 +51,11 @@ namespace erp_back.Controllers
 
             try
             {
-                await _authRepository.UpdateAsync(authentication);
+                await _authenticationService.UpdateAsync(authentication);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (await _authRepository.GetByIdAsync(id) == null)
+                if (await _authenticationService.GetByIdAsync(id) == null)
                 {
                     return NotFound();
                 }
@@ -76,32 +68,25 @@ namespace erp_back.Controllers
             return NoContent();
         }
 
-
-
-
         // POST: api/Authentications
         [HttpPost]
         public async Task<ActionResult<Authentication>> PostAuthentication(Authentication authentication)
         {
-            await _authRepository.AddAsync(authentication);
+            await _authenticationService.AddAsync(authentication);
             return CreatedAtAction("GetAuthentication", new { id = authentication.ID }, authentication);
         }
-
-
-
-
 
         // DELETE: api/Authentications/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAuthentication(int id)
         {
-            var authentication = await _authRepository.GetByIdAsync(id);
+            var authentication = await _authenticationService.GetByIdAsync(id);
             if (authentication == null)
             {
                 return NotFound();
             }
 
-            await _authRepository.DeleteAsync(authentication);
+            await _authenticationService.DeleteAsync(authentication);
             return NoContent();
         }
     }
