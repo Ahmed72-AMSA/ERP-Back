@@ -2,6 +2,7 @@ using erp_back.Models;
 using erp_back.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,22 +23,36 @@ namespace erp_back.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Authentication>>> GetAuthentications()
         {
-            var authentications = await _authenticationService.GetAllAsync();
-            return Ok(authentications);
+            try
+            {
+                var authentications = await _authenticationService.GetAllAsync();
+                return Ok(authentications);
+            }
+            catch (ServiceException ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // GET: api/Authentications/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Authentication>> GetAuthentication(int id)
         {
-            var authentication = await _authenticationService.GetByIdAsync(id);
-
-            if (authentication == null)
+            try
             {
-                return NotFound();
-            }
+                var authentication = await _authenticationService.GetByIdAsync(id);
 
-            return authentication;
+                if (authentication == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(authentication);
+            }
+            catch (ServiceException ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // PUT: api/Authentications/5
@@ -52,42 +67,58 @@ namespace erp_back.Controllers
             try
             {
                 await _authenticationService.UpdateAsync(authentication);
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (ServiceException ex)
             {
-                if (await _authenticationService.GetByIdAsync(id) == null)
+                if (ex.InnerException is DbUpdateConcurrencyException && await _authenticationService.GetByIdAsync(id) == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                return StatusCode(500, ex.Message);
             }
-
-            return NoContent();
         }
 
         // POST: api/Authentications
         [HttpPost]
         public async Task<ActionResult<Authentication>> PostAuthentication(Authentication authentication)
         {
-            await _authenticationService.AddAsync(authentication);
-            return CreatedAtAction("GetAuthentication", new { id = authentication.ID }, authentication);
+            try
+            {
+                var response = await _authenticationService.AddAsync(authentication);
+                if (!response.Success)
+                {
+                    return BadRequest(response.Message);
+                }
+                return CreatedAtAction("GetAuthentication", new { id = authentication.ID }, authentication);
+            }
+            catch (ServiceException ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // DELETE: api/Authentications/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAuthentication(int id)
         {
-            var authentication = await _authenticationService.GetByIdAsync(id);
-            if (authentication == null)
+            try
             {
-                return NotFound();
-            }
+                var authentication = await _authenticationService.GetByIdAsync(id);
+                if (authentication == null)
+                {
+                    return NotFound();
+                }
 
-            await _authenticationService.DeleteAsync(authentication);
-            return NoContent();
+                await _authenticationService.DeleteAsync(authentication);
+                return NoContent();
+            }
+            catch (ServiceException ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
+
+

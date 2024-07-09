@@ -7,7 +7,7 @@ namespace erp_back.Services
         Task<IEnumerable<Authentication>> GetAllAsync();
         Task<Authentication> GetByIdAsync(int id);
         Task UpdateAsync(Authentication authentication);
-        Task AddAsync(Authentication authentication);
+        Task<ServiceResponse> AddAsync(Authentication authentication);
         Task DeleteAsync(Authentication authentication);
     }
 }

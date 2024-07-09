@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YQ31MiQANQc3I5QKO5d5+urXlTjKDgiruwz6BOW7QH4=",
+  "Hash": "esLhcpbY3Cmg9jHnnk9Ik/pMjbRrchVGaMcmxj0Qe+c=",
   "Source": "erp-back",
   "BasePath": "_content/erp-back",
   "Mode": "Default",
@@ -1193,6 +1193,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\Eng-Arfa\\ERP Back\\erp-back\\wwwroot\\uploads\\3244f03a-5bc1-49b0-91aa-cc2968c792b7_WhatsApp Image 2024-06-09 at 2.49.33 AM.jpeg",
+      "SourceId": "erp-back",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Eng-Arfa\\ERP Back\\erp-back\\wwwroot\\",
+      "BasePath": "_content/erp-back",
+      "RelativePath": "uploads/3244f03a-5bc1-49b0-91aa-cc2968c792b7_WhatsApp Image 2024-06-09 at 2.49.33 AM.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\3244f03a-5bc1-49b0-91aa-cc2968c792b7_WhatsApp Image 2024-06-09 at 2.49.33 AM.jpeg"
     }
   ]
 }

@@ -23,6 +23,12 @@ builder.Services.AddScoped<IAuthenticationService,AuthenticationService>();
 
 
 
+
+
+
+
+
+
 // Add services for Swagger
 builder.Services.AddSwaggerGen(c =>
 {

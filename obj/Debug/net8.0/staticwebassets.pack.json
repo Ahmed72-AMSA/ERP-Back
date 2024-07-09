@@ -245,6 +245,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "D:\\Eng-Arfa\\ERP Back\\erp-back\\wwwroot\\uploads\\3244f03a-5bc1-49b0-91aa-cc2968c792b7_WhatsApp Image 2024-06-09 at 2.49.33 AM.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\3244f03a-5bc1-49b0-91aa-cc2968c792b7_WhatsApp Image 2024-06-09 at 2.49.33 AM.jpeg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.erp-back.props",
       "PackagePath": "build\\erp-back.props"
     },

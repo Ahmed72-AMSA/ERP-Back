@@ -1,44 +1,39 @@
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace erp_back.Models;
+namespace erp_back.Models
+{
+    [Index(nameof(Email), IsUnique = true)]
+    [Index(nameof(CompanyName), IsUnique = true)]
+    public class Authentication
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
 
-public class Authentication{
-[Key]
-[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-public  int ID { get; set; }
+        [Required(ErrorMessage = "Company Name is required")]
+        [StringLength(100)]
+        public string? CompanyName { get; set; }
 
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress]
+        public string? Email { get; set; }
 
-[Required]
-[StringLength(100)]
-public required string companyName { get; set; }
+        public string? FilePath { get; set; }
 
+        [NotMapped]
+        public IFormFile? File { get; set; }
 
-[Required]
-[EmailAddress]
-public required string Email { get; set; }
+        private string? _password;
 
+        [Required(ErrorMessage = "Password is required")]
+        public string Password
+        {
+            get { return _password; }
+            set { _password = value; }
+        }
 
-
-
-public string? FilePath { get; set; } 
-
-[NotMapped] 
-public IFormFile? File { get; set; } 
-
-
-
-
-[Required]
-public required string Password { get; set; }
-
-
-public string? role { get; set; } = "admin";
-
-
-
-
-
-
+        public string? Role { get; set; } = "admin";
+    }
 }
