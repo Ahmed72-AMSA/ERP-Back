@@ -140,3 +140,5 @@ D:\Eng-Arfa\ERP Back\erp-back\obj\Debug\net8.0\erp-back.pdb
 D:\Eng-Arfa\ERP Back\erp-back\obj\Debug\net8.0\erp-back.genruntimeconfig.cache
 D:\Eng-Arfa\ERP Back\erp-back\obj\Debug\net8.0\ref\erp-back.dll
 D:\Eng-Arfa\ERP Back\erp-back\obj\Debug\net8.0\erp-back.sourcelink.json
+D:\Eng-Arfa\ERP Back\erp-back\bin\Debug\net8.0\AutoMapper.dll
+D:\Eng-Arfa\ERP Back\erp-back\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

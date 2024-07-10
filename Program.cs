@@ -12,6 +12,11 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 builder.Services.AddControllers();
 
 
+// AutoMapper Configuration 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+
 
 
 // Authentication service and repository 

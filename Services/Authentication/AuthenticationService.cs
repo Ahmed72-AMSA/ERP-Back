@@ -1,11 +1,8 @@
 using erp_back.Models;
 using erp_back.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+
 
 namespace erp_back.Services
 {
@@ -157,6 +154,37 @@ namespace erp_back.Services
             }
         }
 
+
+
+        public async Task<ServiceResponse> LoginAsync(LoginDto loginDto)
+        {
+        var response = new ServiceResponse();
+        try
+        {
+            var user = await _context.Set<Authentication>()
+                .FirstOrDefaultAsync(a => a.Email == loginDto.Email);
+
+            if (user == null || user.Password != loginDto.Password)
+            {
+                response.Success = false;
+                response.Message = "Invalid email or password.";
+                return response;
+            }
+
+            response.Success = true;
+            response.Message = "Login successful.";
+            response.Data = user;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred during login.");
+            response.Success = false;
+            response.Message = "An error occurred during login.";
+        }
+
+        return response;
+    }
+
         private async Task<bool> EmailExistsAsync(string email, int? ignoreId = null)
         {
             return await _context.Set<Authentication>()
@@ -176,4 +204,4 @@ namespace erp_back.Services
 
 
     }
-}
+    }

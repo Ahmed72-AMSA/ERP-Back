@@ -1,3 +1,4 @@
+using AutoMapper;
 using erp_back.Models;
 using erp_back.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,14 @@ namespace erp_back.Controllers
     public class AuthenticationsController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly IMapper _mapper;
 
-        public AuthenticationsController(IAuthenticationService authenticationService)
+
+        public AuthenticationsController(IAuthenticationService authenticationService,IMapper mapper)
         {
             _authenticationService = authenticationService;
+            _mapper = mapper;
+            
         }
 
         // GET: api/Authentications
@@ -100,7 +105,7 @@ namespace erp_back.Controllers
 
         // DELETE: api/Authentications/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAuthentication(int id)
+    public async Task<IActionResult> DeleteAuthentication(int id)
         {
             try
             {
@@ -118,7 +123,36 @@ namespace erp_back.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+    
+    
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var response = await _authenticationService.LoginAsync(loginDto);
+        
+        if (!response.Success)
+        {
+            return BadRequest(response.Message);
+        }
+
+        return Ok(response);
     }
+
+
+    
+    
+    
+    }
+
+
+
+
 }
 
 

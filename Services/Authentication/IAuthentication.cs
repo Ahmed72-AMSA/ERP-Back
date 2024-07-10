@@ -9,5 +9,7 @@ namespace erp_back.Services
         Task UpdateAsync(Authentication authentication);
         Task<ServiceResponse> AddAsync(Authentication authentication);
         Task DeleteAsync(Authentication authentication);
+        Task<ServiceResponse> LoginAsync(LoginDto loginDto);
+
     }
 }
